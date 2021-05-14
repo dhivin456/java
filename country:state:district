@@ -1,0 +1,45 @@
+
+import java.awt.print.Printable;
+import java.util.*;
+
+public class maps
+{
+	@SuppressWarnings({ "unused", "resource" })
+	public static void main(String[] args)
+	{
+
+		Scanner sc = new Scanner(System.in);
+
+		String[] str = {"India:Tamil Nadu:Salem", "India:Tamil Nadu:Erode", "India:Tamil Nadu:Covai", "India:Tamil Nadu:Trichy", "India:Kerala:Palakad", "India:Kerala:Moonaru", "Pakistan:PState1:PState1District1", ":PState1:PState1District2", "Pakistan:PState2:PState2District1", "Pakistan:PState2:PState2District2", "Pakistan:PState3:PState3District1", "Pakistan:PState3:PState3District2"};
+
+		HashMap <String, HashMap<String, List<String>>> csd = new HashMap <String, HashMap<String, List<String>>>();
+		
+		for (int i=0;i<str.length;i++)
+		{
+			String[] map = str[i].split(":");
+			if(!csd.containsKey(map[0]))
+			{				
+				csd.put(map[0], new HashMap <String, List<String>>());
+			}
+			
+			if(!csd.get(map[0]).containsKey(map[1]))
+			{
+				csd.get(map[0]).put(map[1], new ArrayList<String>());
+			}			
+		csd.get(map[0]).get(map[1]).add(map[2]);
+		}
+		for (Map.Entry<String, HashMap< String, List<String>>> e : csd.entrySet())
+		{
+			System.out.println("Country : "+e.getKey());
+			for(Map.Entry<String, List<String>> e1: e.getValue().entrySet())
+			{
+				System.out.println("State : "+e1.getKey());
+				System.out.println("District :");
+				for(String e2:e1.getValue())
+				{
+					System.out.println(e2);
+				}
+			}
+		}	
+	}
+}
