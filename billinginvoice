@@ -1,0 +1,411 @@
+import java.util.Arrays;
+import java.util.*;
+import java.util.Scanner;
+@SuppressWarnings("unused")
+public class invoiceSystem
+{
+  
+	public static void main(String []args)
+    {
+        @SuppressWarnings("resource")
+		Scanner sc=new Scanner(System.in);
+        Customer[] customer=new Customer[10];
+        Invoice[] invoice=new Invoice[20];
+        Item[] item=new Item[20];
+        BItem[] bitem=new BItem[20];
+        item[0]=new Item(400,"HeadPhone");
+        item[1]=new Item(1000,"Speaker");
+        item[2]=new Item(500,"SD card");
+        item[3]=new Item(6000,"Battery");
+        item[4]=new Item(750,"PenDrive");
+        item[5]=new Item(7000,"Hard Disk");
+        item[6]=new Item(800,"charger");
+        try {
+	        for(int i=0; i<7; i++)
+	        {
+	        	int bprice = item[i]. price;
+	        	String bitem_name = item[i].item_name;
+	        	
+	        	
+	        	bitem[i]=new BItem(bprice,bitem_name);
+	        	
+	        
+	        }
+        }
+        catch(NullPointerException e)
+        {
+        	
+        }
+        
+        //System.out.println((Arrays.toString(item)) + "\n");
+        
+		/*
+		 * for(int i =0; i<4; i++) { System.out.println("price : " + item[i].price); }
+		 */
+        
+		/*
+		 * for(Item it:item) { System.out.println("price : " + it.price); }
+		 */
+        
+        int cust_id=0,invoice_id=0,j=0,customer_id,Invoice_id,n;
+        while(true)
+        {
+                System.out.println("\n_INVOICE SYSTEM_\n");
+                System.out.println("1.Add Customer");
+                System.out.println("2.Add Invoice");
+                System.out.println("3.Add Item to Invoice");
+                System.out.println("4.List all Customers");
+                System.out.println("5.List all Invoices");
+                System.out.println("6.List all invoices of a Customer");
+                System.out.println("7.Display an invoice");
+                System.out.println("8.list all items");
+                n=sc.nextInt();
+                if(n<1||n>8)
+                    System.out.println("Please en8ter correct option!!!");
+                else if(n==1)
+                {
+                    customer[cust_id]=new Customer();
+                    customer[cust_id].addCustomer();
+                    System.out.println("Your customer id is "+cust_id);
+                    cust_id++;
+                }
+                else if(n==2)
+                {
+                    System.out.println("1.Existing Customer");
+                    System.out.println("2.New Customer");
+                    j=sc.nextInt();
+                    if(j==1)
+                    {
+                        System.out.println("Enter Customer id:");
+                        customer_id=sc.nextInt();
+                        if(customer_id>=cust_id)
+                        {
+                            System.out.println("Invalid Id!!");
+                            return;
+                        }   
+                    }
+                    else if(j==2)
+                    {
+                        customer[cust_id]=new Customer();
+                        customer[cust_id].addCustomer();
+                        System.out.println("Your customer id is "+cust_id);
+                        customer_id=cust_id;
+                        cust_id++;
+                    }
+                    else
+                    {
+                        System.out.println("Please enter correct option!!!");
+                        return;
+                    }
+                    invoice[invoice_id]=new Invoice();
+                    customer[customer_id].addInvoiceId(invoice_id);
+                    j=1;
+                    while(j==1)
+                    {
+                        System.out.println("Select the Item");
+                        System.out.println("1.HeadPhone Rs.400");
+                        System.out.println("2.Speaker Rs.1000");
+                        System.out.println("3.SD card Rs.500");
+                        System.out.println("4.Battery Rs.6000");
+                        System.out.println("5.Pendrive Rs.750");
+                        System.out.println("6.Hard Disk Rs.7000");
+                        System.out.println("7.charger Rs.800");
+                        j=sc.nextInt();
+                        if(j>7)
+                        {
+                            System.out.println("Invalid Option");
+                            return;
+                        }
+                        invoice[invoice_id].addInvoice(j-1);
+                        System.out.println("enter quantity");
+                        int qty=sc.nextInt();
+                        bitem[j-1].bprice*=qty;
+                        invoice[invoice_id].price+=bitem[j-1].bprice;
+                        invoice[invoice_id].noOfItem+=1;
+                        System.out.println("Are you want to add one more item yes 1 or no 0");
+                        j=sc.nextInt();
+                    }
+                    //System.out.printf("Your invoice no:",invoice_id);
+                    System.out.format("%-20s%-10d","Your invoice no:",invoice_id);
+                    System.out.println("");
+                    invoice_id++;
+                }
+                else if(n==3)
+                {
+                    System.out.println("Enter the invoice Number:");
+                    Invoice_id=sc.nextInt();
+                    if(Invoice_id>=invoice_id)
+                    {
+                        System.out.println("Invalid Invoice Number!!!");
+                    }
+                    else
+                    {
+                        int k=1;
+                        while(k==1)
+                        {
+                            System.out.println("Select the Item");
+                            System.out.println("1.HeadPhone Rs.400");
+                            System.out.println("2.Speaker Rs.1000");
+                            System.out.println("3.SD card Rs.500");
+                            System.out.println("4.Battery Rs.6000");
+                            System.out.println("5.Pendrive Rs.750");
+                            System.out.println("6.Hard Disk Rs.7000");
+                            System.out.println("7.charger Rs.800");
+                            k=sc.nextInt();
+                            if(k>7)
+                            {
+                                System.out.println("Invalid Option");
+                                return;
+                            }
+                            invoice[Invoice_id].addInvoice(j-1);
+                            invoice[Invoice_id].price+=bitem[j-1].bprice;
+                            invoice[Invoice_id].noOfItem+=1;
+                            System.out.println("Are you want to add one more item yes 1 or no 0");
+                            k=sc.nextInt();
+                        }
+                    }
+                }
+                else if(n==4)
+                {
+                	//System.out.print("Cust_id","Cust_name","Mobile","Address");
+                    System.out.format("%-10s%-12s%-15s%-12s","Cust_id","Cust_name","Mobile","Address");
+                    for(j=0;j<cust_id;j++)
+                    {
+                        System.out.println("");
+                        //System.out.println(j,customer[j].cust_name,customer[j].mobileNo,customer[j].address);
+                        System.out.format("%-10s%-12s%-15s%-12s",j,customer[j].cust_name,customer[j].mobileNo,customer[j].address);
+                    }
+                    System.out.println("");
+                }
+                else if(n==5)
+                {
+                    for(j=0;j<invoice_id;j++)
+                    {
+                        displayItem(j,invoice,bitem,customer);
+                    }
+                }
+                else if(n==6)
+                {
+                    int price=0,noOfItem=0;
+                    System.out.println("Enter Customer id:");
+                    customer_id=sc.nextInt();
+                    if(cust_id<=customer_id)
+                    {
+                        System.out.println("Invalid Id!!");
+                        return;
+                    }
+                    int[] invoices=new int[10];
+                    invoices=customer[customer_id].getArray();;
+                    //System.out.print("%-10s%-10d","Customer:",customer_id);
+                    System.out.format("%-10s%-10d","Customer:",customer_id);
+                    for(j=0;j<customer[customer_id].length;j++)
+                    {
+                        Invoice_id=invoices[j];
+                        displayItem(Invoice_id,invoice,bitem,customer);
+                        price+=invoice[Invoice_id].price;;
+                        noOfItem+=invoice[Invoice_id].noOfItem;
+                    }
+                    //System.out.print("Total number of Items Bought by this customer :",noOfItem);
+                    //System.out.print("Total  amount spent by this customer :",price);
+                    System.out.format("%-30s%-10d","Total number of Items Bought by this customer :",noOfItem);
+                    System.out.println("");
+                    System.out.format("%-30s%-10d","Total  amount spent by this customer :",price);
+                }
+                else if(n==7)
+                {
+                    System.out.println("Enter the invoice No:");
+                    Invoice_id=sc.nextInt();
+                    if(Invoice_id>=invoice_id)
+                    {
+                        System.out.println("Invalid id!!!!");
+                    }
+                    else
+                    {
+                        displayItem(Invoice_id,invoice,bitem,customer);
+                    }
+                }
+                else if(n==8)
+                {
+                	try {
+                	 System.out.println(Arrays.toString(bitem));
+                	}
+                	catch(NullPointerException e)
+                	{
+                		
+                	}
+                }
+        }
+    }
+    public static void displayItem(int Invoice_id,Invoice[] invoice,BItem[] bitem, Customer[] customer)
+    {
+        int[] bitems=new int[10];
+        int bitem_id=0,j;
+        
+        bitems=invoice[Invoice_id].getArray();
+        /*System.out.printf("Invoice_no",Invoice_id);
+        System.out.printf(item_name","unit_price");*/
+        System.out.println("");
+        System.out.format("%-15s%-10d","Invoice_no",Invoice_id);
+        System.out.println("");
+        for(int i=0; i<10 ; i++)
+        {
+        	try {
+	        	if(customer[i].invoice[i] == Invoice_id)
+	        	{
+	        		System.out.println("Customer Name : " + customer[i].cust_name);
+	
+	        	}
+	        }
+        	catch(NullPointerException e)
+        	{
+        		
+        	}
+        	
+        }
+        
+        
+        
+        
+        System.out.println("");
+        System.out.format("%-12s%-15s","item_name","unit_price");
+        System.out.println("");
+        for(j=0;j<invoice[Invoice_id].length;j++)
+        {
+            bitem_id=bitems[j];
+           // System.out.printf(item[item_id].item_name,item[item_id].price);
+            System.out.format("%-15s%-20d",bitem[bitem_id].bitem_name,bitem[bitem_id].bprice);
+        }
+        //System.out.printf("TotalItems:",invoice[Invoice_id].noOfItem,"TotalPrice:",invoice[Invoice_id].price);
+        System.out.format("%-15s%-10d%-15s%-10d","TotalItems:",invoice[Invoice_id].noOfItem,"TotalPrice:",invoice[Invoice_id].price);
+    }
+}
+class Customer
+{
+    String cust_name,mobileNo,address;
+    int[] invoice=new int[10];
+    int length;
+    Scanner s=new Scanner(System.in);
+    public void addCustomer()
+    {
+        System.out.println("Enter customer name:");
+        cust_name=s.nextLine();
+        System.out.println("Enter address:");
+        address=s.nextLine();
+        System.out.println("Enter Mobile no:");
+        mobileNo=s.nextLine();
+    }
+    public void addInvoiceId(int a) 
+    {
+        invoice[length]=a;
+        length++;
+    }
+    public int[] getArray()
+    {
+        return invoice;
+    }
+}
+class Invoice
+{
+    int price,noOfItem,length=0;
+    int[] bitem=new int[10];
+    int[] invoice=new int[10];
+    public void addInvoice(int bitemId)
+    {
+        bitem[length]=bitemId;
+        length++;
+    }
+  /* public void setcustomer(int cust_id)
+    {
+        invoice[length]=cust_id;
+        length++;
+    }*/
+    public int[] getArray()
+    {
+        return bitem;
+    }
+   // bitem=item.clone();
+    /*class BItem {
+   	 int bprice;
+   	    String bitem_name;
+   	    public BItem(int bPrice,String bItem_Name)
+   	    {
+   	        this.bprice=bPrice;
+   	        this.bitem_name=bItem_Name;
+   	    }
+   		public int getbPrice() {
+   			return bprice;
+   		}
+   		public void setbPrice(int price) {
+   			this.bprice = bprice;
+   		}
+   		public String getbItem_name() {
+   			return bitem_name;
+   		}
+   		public void setItem_name(String item_name) {
+   			this.bitem_name = item_name;
+   		}
+   		public String toString()
+   		{
+   			return "\nitem_name :" + bitem_name + "\n" + "\nprice :" + bprice + "\n";
+   			
+   		}
+   		
+   }*/
+}  
+
+class Item
+{
+    int price;
+    String item_name;
+    public Item(int Price,String Item_Name)
+    {
+        this.price=Price;
+        this.item_name=Item_Name;
+    }
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public String getItem_name() {
+		return item_name;
+	}
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
+	}
+	public String toString()
+	{
+		return "\nitem_name :" + item_name + "\n" + "\nprice :" + price + "\n";
+		
+	}
+	
+	
+}
+class BItem {
+	 int bprice;
+	    String bitem_name;
+	    public BItem(int bPrice,String bItem_Name)
+	    {
+	        this.bprice=bPrice;
+	        this.bitem_name=bItem_Name;
+	    }
+		public int getbPrice() {
+			return bprice;
+		}
+		public void setbPrice(int price) {
+			this.bprice = bprice;
+		}
+		public String getbItem_name() {
+			return bitem_name;
+		}
+		public void setItem_name(String item_name) {
+			this.bitem_name = item_name;
+		}
+		public String toString()
+		{
+			return "\nitem_name :" + bitem_name + "\n" + "\nprice :" + bprice + "\n";
+			
+		}
+		
+}
