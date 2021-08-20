@@ -1,0 +1,40 @@
+import java.util.*;
+public class Main
+{
+    static int MAX_COUNT= 10000;
+    static List<String>var = new LinkedList<String>();
+    static void generatenumber()
+    {
+        Queue<String> q = new LinkedList<String>();
+        q.add("9");
+        for(int count =MAX_COUNT;count>0;count--){
+            String s1=q.peek();
+            q.remove();
+            var.add(s1);
+            String s2=s1;
+            q.add(s1+"0");
+            q.add(s2+"9");
+        }
+
+    }
+    static String fsm(int n)//findsmallestmultiple
+    {
+        for(int i=0; i < var.size();i++)
+        {
+            if(Integer.parseInt(var.get(i))%n==0)
+            {
+                return var.get(i);
+            }
+        }
+        return "";
+    }
+    public static void main(String args[])
+    {
+        generatenumber();
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt();
+        System.out.println(fsm(n));
+    }
+
+
+}
