@@ -1,0 +1,21 @@
+import java.util.*;
+public class Main
+{
+    static int nmonth(int n)
+    {
+        int dapp[] = new int[n+1];
+        dapp[0] = 0;
+        dapp[1] = 1;
+        for(int i = 2; i<=n;i++)
+        {
+            dapp[i] = dapp[i-1] + dapp[i-2];
+        }
+        return dapp[n];
+    }
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.println(nmonth(n));
+    }
+}
