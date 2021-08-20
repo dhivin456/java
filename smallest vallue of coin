@@ -1,0 +1,46 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[])
+    {
+        Scanner sc =new Scanner(System.in);
+        int N = sc.nextInt();
+        int[] den = new int[N];
+        for(int i = 0; i<N; i++)
+        {
+            den[i] = sc.nextInt();
+        }
+        subset(den, N);
+    }
+    static void subset(int a[], int n)
+    {
+        ArrayList list = new ArrayList();
+        //int l = n*n - 1;
+        //int[] sub = new int[l]
+        int tot = 1 << n;
+        for(int i = 0; i<tot; i++)
+        {
+            int sum = 0;
+            for(int j = 0; j<n; j++)
+            {
+                if((i & (1 << j))!= 0){
+                    sum += a[j];
+                }
+            }
+            list.add(sum);
+            //sub[i] = sum;
+
+        }
+        for(int k = 0; k<1000000;)
+        {
+            if(list.contains(k))
+            {
+                k++;
+            }
+            else{
+                System.out.println(k);
+                break;
+            }
+        }
+    }
+
+}
