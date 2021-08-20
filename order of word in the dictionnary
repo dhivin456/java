@@ -1,0 +1,65 @@
+import java.util.*;
+
+class Main
+{
+    static int getFactorial(int number)
+    {
+        int fact = 1;
+        for(int index = 1; index <= number; index++)
+        {
+            fact = fact * index;
+        }
+        return fact;
+    }
+    static int getSmallerRankThanMe(String word, int position)
+    {
+        int smallerRankThanMe = 0;
+        for(int index = position + 1; index < word.length(); index++)
+        {
+            if(word.charAt(position) > word.charAt(index))
+            {
+                smallerRankThanMe++;
+            }
+        }
+        return smallerRankThanMe;
+    }
+    static long getRepetitionFactorialValue(String word, int position)
+    {
+        ArrayList<Character> occured = new ArrayList<>();
+        long totalValue = 1;
+        while(position < word.length())
+        {
+            int count = 0;
+            if(!occured.contains(word.charAt(position)))
+            {
+                occured.add(word.charAt(position));
+                for(int index = position; index < word.length(); index++)
+                {
+                    if(word.charAt(position) == word.charAt(index))
+                    {
+                        count++;
+                    }
+                }
+            }
+            totalValue = totalValue * getFactorial(count);
+            position++;
+        }
+        return totalValue;
+    }
+    static int getRow(String word)
+    {
+        int row = 0;
+        int length = word.length()-1;
+        for(int index = 0; index < word.length(); index++)
+        {
+            row = row + (int)((getFactorial(length--)*getSmallerRankThanMe(word, index)/getRepetitionFactorialValue(word, index)));
+        }
+        return row + 1;
+    }
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+        String word = sc.nextLine();
+        System.out.println(getRow(word.toLowerCase()));
+    }
+}
