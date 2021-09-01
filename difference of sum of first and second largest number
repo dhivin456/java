@@ -1,0 +1,49 @@
+import java.util.*;
+public class Main
+{
+    static int sec(int n)
+    {
+        int l = 0, s=0, rem;
+        while(n!=0)
+        {
+            rem=n%10;
+            if (l<rem)
+            {
+                s=1;
+                l=rem;
+            }
+            else if(rem>=s)
+            {
+                s=rem;
+            }
+            n=n/10;
+        }
+        return s;
+    }
+    static int first(int n)
+    {
+        int m=1,rem;
+        while(n!=0)
+        {
+            rem = n%10;
+            if(rem>m)
+            {
+                m=rem;
+            }
+            n=n/10;
+        }
+        return m;
+    }
+    public static void main (String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a=sc.nextInt();
+        int b = sc.nextInt();
+        int c= sc.nextInt();
+        int res1;
+        int res2;
+        res1 = first(a)+first(b)+first(c);
+        res2 = sec(a)+sec(b)+sec(c);
+        int res =res1-res2;
+        System.out.println(res);
+    }
+}
