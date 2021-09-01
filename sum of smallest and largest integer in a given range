@@ -1,0 +1,50 @@
+import java.util.*;
+public class Main
+{
+    
+    static int prime(int n)
+    {
+        int flag =0;
+        int m=n/2;
+        for(int i=2;i<m;i++)
+        {
+            if(n%i==0)
+            {
+                flag =1;
+                break;
+            }
+        }
+        if(flag==0)
+        {
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    public static void main (String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a=0, b=0, sum;
+        int start = sc.nextInt();
+        int end = sc.nextInt();
+        for(int i = start;i<=end;i++)
+        {
+                if(prime(i)==1)
+                {
+                    a=i;
+                    break;
+                }
+        }
+        for(int i = end;i>=start;i--)
+        {
+                if(prime(i)==1)
+                {
+                    b=i;
+                    break;
+                }
+        }
+        sum = a+b;
+       System.out.println(sum);
+        
+    }
+}
