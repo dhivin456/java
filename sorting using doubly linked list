@@ -1,0 +1,98 @@
+package practise;
+
+import java.util.Scanner;
+import java.util.*;
+
+class QuickSort_using_Doubly_LinkedList{
+	Node head;
+	static class Node{
+		private int data;
+		private Node next;
+		private Node prev;
+		
+		Node(int d){
+			data = d;
+			next = null;
+			prev = null;
+		}
+	}
+	Node lastNode(Node node){
+		while(node.next!=null)
+			node = node.next;
+		return node;
+	}
+	Node partition(Node l,Node h)
+	{
+		int x = h.data;
+		Node i = l.prev;
+		for(Node j=l; j!=h; j=j.next)
+		{
+			if(j.data <= x)
+			{
+				i = (i==null) ? l : i.next;
+				int temp = i.data;
+				i.data = j.data;
+				j.data = temp;
+			}
+		}
+		i = (i==null) ? l : i.next; 
+		int temp = i.data;
+		i.data = h.data;
+		h.data = temp;
+		return i;
+	}
+	void _quickSort(Node l,Node h)
+	{
+		if(h!=null && l!=h && l!=h.next){
+			Node temp = partition(l,h);
+			_quickSort(l,temp.prev);
+			_quickSort(temp.next,h);
+		}
+	}
+	public void quickSort(Node node)
+	{
+		Node head = lastNode(node);
+		_quickSort(node,head);
+	}
+	public void printList(Node head)
+	{
+		while(head!=null){
+			System.out.print(head.data+" ");
+			head = head.next;
+		}
+	}
+	void push(int new_Data)
+	{
+		Node new_Node = new Node(new_Data);
+		if(head==null){
+			head = new_Node;
+			return;
+		}
+		new_Node.next = head;
+		head.prev = new_Node;
+		new_Node.prev = null;
+		head = new_Node;
+	}
+	public static void main(String[] args){
+			QuickSort_using_Doubly_LinkedList list = new QuickSort_using_Doubly_LinkedList();
+			
+			Scanner sc = new Scanner(System.in);
+			int n = sc.nextInt();
+			for(int i=0;i<n;i++)
+			{
+				list.push(sc.nextInt());
+			}
+			/*
+			 * list.push(5); list.pnush(20); list.push(4); list.push(3); list.push(30);
+			 */
+			
+			System.out.println("Linked List before sorting ");
+			list.printList(list.head);
+			System.out.println("\nLinked List after sorting");
+			list.quickSort(list.head);
+			list.printList(list.head);
+		
+	}
+}
+
+
