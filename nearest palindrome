@@ -8,26 +8,26 @@ public class ClosestPalindrome
 	    {
 	        int order = (int) Math.pow(10, n.length()/2);
 	        //System.out.println("order="+order);
-	        Long ans = Long.valueOf(new String(n));
-	        //System.out.println("ans="+ ans);
-	        Long noChange = reverse(ans);
-	        //System.out.println("nochange"+noChange);
-	        Long larger = reverse((ans/order)*order + order+1);
+	        Long val = Long.valueOf(new String(n));
+	        //System.out.println("val="+ val);
+	        Long gans = reverse(val);
+	        //System.out.println("gans"+gans);
+	        Long larger = reverse((val/order)*order + order+1);
 	        //System.out.println("larger="+larger);
-	        Long smaller = reverse((ans/order)*order - 1 );
+	        Long smaller = reverse((val/order)*order - 1 );
 	        //System.out.println("smaller="+smaller);
-	        if ( noChange > ans)
+	        if ( gans > val)
 	        {
-	            larger = (long) Math.min(noChange, larger);
+	            larger = (long) Math.min(gans, larger);
 	        } 
-	        else if ( noChange < ans) 
+	        else if ( gans < val) 
 	        {
-	            smaller = (long) Math.max(noChange, smaller); 
+	            smaller = (long) Math.max(gans, smaller); 
 	        }       
-	        return String.valueOf( ans - smaller <= larger - ans ? smaller :larger) ;
+	        return String.valueOf( val - smaller <= larger - val ? smaller :larger) ;
 	}
-	    static Long reverse(Long ans) {
-	        char[] a = String.valueOf(ans).toCharArray();
+	    static Long reverse(Long val) {
+	        char[] a = String.valueOf(val).toCharArray();
 	        int i = 0;
 	        int j = a.length-1;
 	        while (i < j)
