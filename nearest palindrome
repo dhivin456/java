@@ -1,48 +1,48 @@
-import java.io.*;
+package dhivin_sh;
 import java.util.*;
-class Main{
-public static boolean isPalindrome(String s)
+import java.io.*;
+import java.lang.*;
+public class ClosestPalindrome 
 {
-	int left = 0;
-	int right = s.length() - 1;
+	    static String nearestPalindromic(String n) 
+	    {
+	        int order = (int) Math.pow(10, n.length()/2);
+	        //System.out.println("order="+order);
+	        Long ans = Long.valueOf(new String(n));
+	        //System.out.println("ans="+ ans);
+	        Long noChange = reverse(ans);
+	        //System.out.println("nochange"+noChange);
+	        Long larger = reverse((ans/order)*order + order+1);
+	        //System.out.println("larger="+larger);
+	        Long smaller = reverse((ans/order)*order - 1 );
+	        //System.out.println("smaller="+smaller);
+	        if ( noChange > ans)
+	        {
+	            larger = (long) Math.min(noChange, larger);
+	        } 
+	        else if ( noChange < ans) 
+	        {
+	            smaller = (long) Math.max(noChange, smaller); 
+	        }       
+	        return String.valueOf( ans - smaller <= larger - ans ? smaller :larger) ;
+	}
+	    static Long reverse(Long ans) {
+	        char[] a = String.valueOf(ans).toCharArray();
+	        int i = 0;
+	        int j = a.length-1;
+	        while (i < j)
+	        {
+	            a[j--] = a[i++];
+	        }
+	        return Long.valueOf(new String(a));
+	    }
+	    public static void main (String[] args)
+	    {
+	        Scanner sc = new Scanner(System.in);
+	        int num = sc.nextInt();
+	        String str = String.valueOf(num);
+	        System.out.println(nearestPalindromic(str));
+	        
+	    }
+}
 
-	while (left < right)
-	{
-		if (s.charAt(left) !=
-			s.charAt(right))
-		{
-			return false;
-		}
-		left++;
-		right--;
-	}
-	return true;
-}
-public static void closestPalindrome(int num)
-{
-	int RPNum = num - 1;
-	while (isPalindrome(Integer.toString(RPNum)) == false)
-	{
-		RPNum--;
-	}
-	int SPNum = num + 1;
-	while (isPalindrome(Integer.toString(SPNum)) == false)
-	{
-		SPNum++;
-	}
-	if (Math.abs(num - SPNum) <
-		Math.abs(num - RPNum))
-	{
-		System.out.println(SPNum);
-	}
-	else
-		System.out.println(RPNum);
-}
-public static void main(String[] args)
-{
-	/*int n = 121;*/
-	Scanner sc = new Scanner(System.in);
-	int n = sc.nextInt();
-	closestPalindrome(n);
-}
-}
