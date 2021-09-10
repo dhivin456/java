@@ -1,0 +1,30 @@
+ import java.util.Scanner;
+ public class Main
+ {
+     static int checkValidtity(int a , int b, int c)
+     {
+         if(a+b<=c|| a+c<=b||b+c<=a)
+         {
+             return 0;
+         }
+         else{
+             return 1;
+         }
+     }
+     public static void main(String args[])
+     {
+         Scanner sc = new Scanner(System.in);
+         int side1 = sc.nextInt();
+         int side2 = sc.nextInt();
+         int side3 = sc.nextInt();
+         if(checkValidtity(side1,side2,side1)== 1)
+         {
+             System.out.println("valid");
+         }
+         else
+         {
+             System.out.println("invalid");
+         }
+         //System.out.println(ans);
+     }
+ } 
