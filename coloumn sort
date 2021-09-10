@@ -1,0 +1,55 @@
+import java.util.*;
+import java.util.Arrays;
+class Main
+{
+    static int[][] transpose(int[][] mat, int row,
+    						int col)
+    {
+        	int[][] tr = new int[col][row];
+        	for(int i = 0; i < row; i++)
+        	{
+        		for(int j = 0; j < col; j++)
+        		{
+        			tr[j][i] = mat[i][j];
+        		}
+        	}
+        	return tr;
+    }
+    static void RowWiseSort(int[][] B)
+    {
+    	for(int i = 0; i < (int)B.length; i++)
+    	{
+    		Arrays.sort(B[i]);
+    	}
+    }
+    static void sortCol(int[][] mat, int N, int M)
+    {
+    	int[][] B = transpose(mat, N, M);
+    	RowWiseSort(B);
+    	mat = transpose(B, M, N);
+    	for(int i = 0; i < N; i++)
+    	{
+    		for(int j = 0; j < M; j++)
+    		{
+    			System.out.print(mat[i][j] + " ");
+    		}
+    		System.out.println();
+    	}
+    }
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int mat[][] = new int[n][n];
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                mat[i][j] = sc.nextInt();
+            }
+        }
+    	int N = mat.length;
+    	int M = mat[0].length;
+    	sortCol(mat, N, M);
+    }
+}
